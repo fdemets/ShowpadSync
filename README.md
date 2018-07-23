@@ -1,7 +1,7 @@
 # ShowpadSync
 C# WinForms Experimental Showpad Sync to My Files
 
-Watches 
+Watches a hotfolder for files to be uploaded to Showpad
 
 ## Experimental!
 
