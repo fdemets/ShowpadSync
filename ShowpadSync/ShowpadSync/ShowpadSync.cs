@@ -70,6 +70,7 @@ namespace ShowpadSync
 
                         MultipartFormDataContent form = new MultipartFormDataContent();
 
+                            // force Showpad to Autolink to root folder
                           form.Add(new StringContent("{\"materialisedPath\":\"/\"}"), "postProcessingInstructions");
 
 
@@ -107,6 +108,8 @@ namespace ShowpadSync
         {
             txtLog.Text = txtLog.Text + Environment.NewLine + t;
         }
+        
+        //unused - test code
         private void CreateClient()
         {
             client = new HttpClient();
@@ -135,20 +138,20 @@ namespace ShowpadSync
                     client.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenNo);
 
 
-                    // get userid  c64ac7472f03f86a53e0b6759dffa914
+                    // get userid  
                     response = client.GetAsync("/api/v3/users.json?email="+HttpUtility.UrlEncode(txtUser.Text)).Result;
                      dynamic resp = JsonConvert.DeserializeObject<dynamic>( response.Content.ReadAsStringAsync().Result);
                   //  Console.WriteLine(userid.response.items[0]);
                     string userid= resp.response.items[0].id;
 
 
-                    // get users myuploads id 7a21881d8d1195e8003d367a6dcfe7a3
+                    // get users myuploads id 
                     response = client.GetAsync("/api/v3/users/"+ userid + ".json?fields=myUploadsCollectionId").Result;
                      resp = JsonConvert.DeserializeObject<dynamic>(response.Content.ReadAsStringAsync().Result);
                 //  Console.WriteLine(userid.response.items[0]);
                      myUploadsId = resp.response.myUploadsCollectionId;
 
-                    // get my uploads target 77452d0026289d3901330871a6543a15
+                    // get my uploads target 
 
                     response = client.GetAsync("/api/v3/users/" + userid + "/channels.json?name=My%20Channel&personalContentIncluded=true").Result;
                     resp = JsonConvert.DeserializeObject<dynamic>(response.Content.ReadAsStringAsync().Result);
